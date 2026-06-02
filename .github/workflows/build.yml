@@ -50,9 +50,6 @@ jobs:
             type=raw,value=latest
             type=sha
 
-      #
-      # Budowa obrazu do skanowania
-      #
       - name: Build image for scan
         uses: docker/build-push-action@v6
         with:
@@ -60,42 +57,24 @@ jobs:
           load: true
           tags: local-scan:latest
           platforms: linux/amd64
+          cache-from: type=registry,ref=${{ env.CACHE_IMAGE }}
+          cache-to: type=registry,ref=${{ env.CACHE_IMAGE }},mode=max
 
-          cache-from: |
-            type=registry,ref=${{ env.CACHE_IMAGE }}
-
-          cache-to: |
-            type=registry,ref=${{ env.CACHE_IMAGE }},mode=max
-
-      #
-      # Test CVE (HIGH + CRITICAL)
-      #
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: local-scan:latest
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
 
-      #
-      # Publikacja tylko po przejściu skanu
-      #
       - name: Build and push multi-platform image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-
-          platforms: |
-            linux/amd64,
-            linux/arm64
-
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-          cache-from: |
-            type=registry,ref=${{ env.CACHE_IMAGE }}
-
-          cache-to: |
-            type=registry,ref=${{ env.CACHE_IMAGE }},mode=max
+          cache-from: type=registry,ref=${{ env.CACHE_IMAGE }}
+          cache-to: type=registry,ref=${{ env.CACHE_IMAGE }},mode=max

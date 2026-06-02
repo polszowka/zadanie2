@@ -1,8 +1,8 @@
-\# Zadanie 2
+Zadanie 2
 
 
 
-\## Opis
+Opis
 
 
 
@@ -14,17 +14,17 @@ Workflow realizuje następujące zadania:
 
 
 
-\* budowa obrazu dla architektur `linux/amd64` oraz `linux/arm64`,
+\- budowa obrazu dla architektur `linux/amd64` oraz `linux/arm64`,
 
-\* wykorzystanie cache Buildx przechowywanego w publicznym repozytorium Docker Hub (`cache-to` oraz `cache-from`, tryb `max`),
+\- wykorzystanie cache Buildx przechowywanego w publicznym repozytorium Docker Hub (`cache-to` oraz `cache-from`, tryb `max`),
 
-\* skanowanie obrazu przy użyciu Trivy,
+\- skanowanie obrazu przy użyciu Trivy,
 
-\* publikacja obrazu do GHCR tylko w przypadku braku podatności HIGH i CRITICAL.
+\- publikacja obrazu do GHCR tylko w przypadku braku podatności HIGH i CRITICAL.
 
 
 
-\## Tagowanie
+Tagowanie
 
 
 
@@ -32,9 +32,9 @@ Obrazy publikowane są z tagami:
 
 
 
-\* `latest`
+\- `latest`
 
-\* `sha-<hash\_commita>`
+\- `sha-<hash\_commita>`
 
 
 
@@ -42,7 +42,7 @@ Cache przechowywany jest pod tagiem:
 
 
 
-\* `buildcache`
+\- `buildcache`
 
 
 
@@ -50,11 +50,17 @@ Tag `latest` wskazuje najnowszą wersję obrazu, natomiast tag oparty o hash com
 
 
 
-\## Potwierdzenie działania
+Potwierdzenie działania
 
 
 
 Workflow został uruchomiony w GitHub Actions i poprawnie wykonał budowę obrazu oraz skan bezpieczeństwa Trivy.
 
 
+
+Trivy scan
+
+!\[Trivy](screenshots/scan1.png)
+
+!\[Trivy](screenshots/scan2.png)
 

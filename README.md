@@ -56,11 +56,3 @@ Potwierdzenie działania
 
 Workflow został uruchomiony w GitHub Actions i poprawnie wykonał budowę obrazu oraz skan bezpieczeństwa Trivy.
 
-
-
-Trivy scan
-
-!\[Trivy](screenshots/scan1.png)
-
-!\[Trivy](screenshots/scan2.png)
-
